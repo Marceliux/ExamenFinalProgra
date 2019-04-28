@@ -8,16 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Arrays;
 import java.util.List;
 
 
 public class GuardarActivity extends AppCompatActivity {
     private EditText txtNombre;
     private Button btnGuardarInfo;
-    private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor editor;
-    private List<String> nombres;
     private SharedPreferences prefs;
     @Override
 
@@ -32,19 +29,21 @@ public class GuardarActivity extends AppCompatActivity {
     private void inicializarCosas(){
         txtNombre = (EditText) findViewById(R.id.txtNombre);
         btnGuardarInfo = (Button) findViewById(R.id.btnGuardarInfo);
+
+        btnGuardarInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isEmpty(txtNombre)){
+                    Toast toast = Toast.makeText(getApplicationContext(), "El nombre insertado no es correcto, intentelo otra vez", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else{
+                    String nombreValidado = txtNombre.getText().toString();
+                    guardarInfoShared(nombreValidado);
+                }
+            }
+        });
     }
 
-
-    //Este es el onClick del boton para guardar el nombre a los shared preferences
-    public void OnClickGuardarInfo(View v){
-        if(isEmpty(txtNombre)){
-            Toast toast = Toast.makeText(this, "El nombre insertado no es correcto, intentelo otra vez", Toast.LENGTH_SHORT);
-            toast.show();
-        }else{
-            String nombreValidado = txtNombre.getText().toString();
-            guardarInfoShared(nombreValidado);
-        }
-    }
 
     //Forma sencilla de validar el input txtNombre
     public static boolean isEmpty(EditText editText) {

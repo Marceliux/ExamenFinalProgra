@@ -27,19 +27,23 @@ public class MainActivity extends AppCompatActivity {
         btnGuardar = (Button) findViewById(R.id.btnGuardar);
         btnMostrar = (Button) findViewById(R.id.btnMostrar);
 
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), GuardarActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnMostrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MostrarActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
-
-
-    public void onClickGuardar(View v) {
-        Intent intent = new Intent(this, GuardarActivity.class);
-        startActivity(intent);
-    }
-
-    public void onClickMostrar(View v){
-        Intent intent = new Intent(this, MostrarActivity.class);
-        startActivity(intent);
-    }
-
 
     public void inicializarSharedPreferences(){
         prefs = getSharedPreferences("prefs", 0 );
